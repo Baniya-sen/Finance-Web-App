@@ -50,10 +50,10 @@ You can also access the deployed website through your web browser at the provide
 ## Screenshots
 
 ### Login Page
-(https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/a3d5d041-a1f4-4666-83f1-ce85b322b81a)
+![Login Page](https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/a3d5d041-a1f4-4666-83f1-ce85b322b81a)
 
 ### Stock Tracking
-(https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/927aaacc-0181-4e87-9af0-350cab67a3bf)
+![buy](https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/927aaacc-0181-4e87-9af0-350cab67a3bf)
 
 ### History
-(https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/c45aa72d-a3fd-46ea-9f8c-7a6ab4cc4ed2)
+![history](https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/c45aa72d-a3fd-46ea-9f8c-7a6ab4cc4ed2)
