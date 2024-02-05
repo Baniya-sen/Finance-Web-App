@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block main %}
+<style>
+    .custom-font {
+        font-family: 'Consolas', sans-serif;
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="mb-4">{{ user_info[0]["username"] }}'s Stocks</h1>
+    <table class="table custom-font">
+        <thead>
+            <tr style="font-size: 1.3rem;">
+                <th>User Id</th>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Current_Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total_price = namespace(value=0) %}
+            {% for i in range(stock_info | length) %}
+                <tr style="background-color: rgba(220, 250, 250, 0.5);">
+                    <td>{{ stock_info[i]["user_id"] }}</td>
+                    <td>{{ stock_info[i]["stock_symbol"] }}</td>
+                    <td>{{ stock_info[i]["quantity"] }}</td>
+                    <td>{{ stocks_current_price[i] | INR }}</td>
+                    <td>{{ (stock_info[i]["quantity"] * stocks_current_price[i]) | INR }}</td>
+                    {% set total_price.value = total_price.value + stock_info[i]["quantity"] * stocks_current_price[i] %}
+                </tr>
+            {% endfor %}
+            <tr class="table-secondary">
+                <td colspan="3"></td>
+                <td><strong>CASH</strong></td>
+                <td class="font-weight-bold">{{ user_info[0]["cash"] | INR }}</td>
+            </tr>
+            <tr class="table-secondary">
+                <td colspan="3"></td>
+                <td class="font-weight-bold"><strong>TOTAL</strong></td>
+                <td class="font-weight-bold">{{ (user_info[0]["cash"] + total_price.value) | INR }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

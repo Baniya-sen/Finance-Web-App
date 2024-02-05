@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %} Get Quote {% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="text-align: left;">
+            <h2 class="mb-4">Get a Quote:</h2>
+            <form action="/quote" method="post">
+                <div class="mb-3">
+                    <input name="symbol" type="text" autocomplete="off" autofocus class="form-control" placeholder="Enter a stock Symbol i.e 'NFLX'" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Hit me a Quote!</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

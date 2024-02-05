@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %} Sell Stocks {% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="text-align: left;">
+            <h2 class="mb-4">Enter details to sell stocks:</h2>
+            <form action="/sell" method="post">
+                <div class="mb-3">
+                    <!-- INSTEAD OF INPUT USE SELECT -->
+                    <select name="symbol" class="form-control" required>
+                        <option value="default" disabled selected>Select your stock</option>
+                        {% for symbol in stocks %}
+                            <option value="{{ symbol }}">{{ symbol }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input name="shares"
+                    type="number"
+                    autocomplete="off"
+                    class="form-control"
+                    placeholder="Enter how many shares you wanna sell"
+                    value="0"
+                    oninput="validateSharesInput(this)"
+                    autofocus
+                    required>
+                </div>
+                <button type="submit" class="btn btn-primary">SELL</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateSharesInput(input) {
+        // Ensure the input value is a non-negative integer
+        var currentShares = parseInt(input.value, 10) || 0;
+        input.value = Math.max(currentShares, 0);
+    }
+</script>
+
+{% endblock %}

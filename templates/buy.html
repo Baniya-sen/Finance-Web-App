@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %} Buy Stocks {% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="text-align: left;">
+            <h2 class="mb-4">Enter details to buy stocks:</h2>
+            <form action="/buy" method="post">
+                <div class="mb-3">
+                    <input name="symbol" type="text" autocomplete="off" autofocus class="form-control" placeholder="Enter a stock Symbol i.e 'NFLX'" required>
+                </div>
+                <div class="mb-3">
+                    <input name="shares"
+                    type="number"
+                    autocomplete="off"
+                    class="form-control"
+                    placeholder="Enter how many shares you wanna buy"
+                    value="0"
+                    oninput="validateSharesInput(this)"
+                    autofocus
+                    required>
+                </div>
+                <button type="submit" class="btn btn-primary">BUY</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

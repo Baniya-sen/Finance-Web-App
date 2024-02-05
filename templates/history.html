@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %} Transaction History {% endblock %}
+
+{% block main %}
+<style>
+    .custom-font {
+        font-family: 'Consolas', sans-serif; /* Use Arial or your preferred font */
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Transaction History</h1>
+    <table class="table custom-font">
+        <thead>
+            <tr style="font-size: 1.4rem;">
+                <th>Transaction_Type</th>
+                <th>Stock_Symbol</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr style="background-color: rgba(252, 252, 215, 0.6);">
+                    <td>{{ transaction["transaction_type"] }}</td>
+                    <td>{{ transaction["stock_symbol"] }}</td>
+                    <td>{{ transaction["stock_price"] | INR }}</td>
+                    <td>{{ transaction["quantity"] }}</td>
+                    <td>{{ transaction["amount"] | INR }}</td>
+                    <td>{{ transaction["transaction_date"] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
