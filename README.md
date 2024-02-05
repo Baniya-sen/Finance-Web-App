@@ -3,8 +3,7 @@
 Welcome to the Finance Website project! This web application provides various finance-related functionalities, making it easier for users to manage their financial activities effectively.
 
 ### Home Page
-![Home Page](h![homepage](https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/bd14586a-e8f3-475c-85c3-9af5b8aafab0)
-ome_page.png)
+![Home Page](https://github.com/Baniya-sen/Finance-Web-App/assets/144620117/bd14586a-e8f3-475c-85c3-9af5b8aafab0)
 
 ## Description
 
