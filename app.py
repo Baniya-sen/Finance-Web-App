@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, g, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 import sqlite3
+import datetime
 
 # Functions in helpers.py
 from helpers import get_db, login_required, apology, rupees, lookup, buy_datapoint, sell_datapoint
@@ -38,6 +39,16 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
+    current_date_time = datetime.datetime.now().strftime("%d-%m-%Y %I-%M %p")
+    # Verify if database exists
+    try:
+        with open("finance.db", "r") as f_db:
+            pass
+    except FileNotFoundError:
+        open("error.txt", "a").write(f"{current_date_time} - Database file not found!\n")
+        session.clear()
+        return redirect("/login")
+
     # Database instance
     cursor = get_db().cursor()
 
@@ -46,21 +57,27 @@ def index():
         "SELECT username, cash FROM users WHERE id = ?",
         (session["user_id"],)
     )
-    info_column = [heading[0] for heading in cursor.description]
-    info_rows = cursor.fetchall()
-    user_info_dict = [dict(zip(info_column, row)) for row in info_rows]
+    try:
+        info_column = [heading[0] for heading in cursor.description]
+        info_rows = cursor.fetchall()
+        user_info_dict = [dict(zip(info_column, row)) for row in info_rows]
 
-    # Get user's stock holdings info from database in dict format
-    user_stocks_info = cursor.execute(
-        "SELECT * FROM stocks_holdings WHERE user_id = ?",
-        (session["user_id"],)
-    )
-    stock_column = [heading[0] for heading in cursor.description]
-    stock_rows = cursor.fetchall()
-    stock_info_dict = [dict(zip(stock_column, row)) for row in stock_rows]
+        # Get user's stock holdings info from database in dict format
+        user_stocks_info = cursor.execute(
+            "SELECT * FROM stocks_holdings WHERE user_id = ?",
+            (session["user_id"],)
+        )
+        stock_column = [heading[0] for heading in cursor.description]
+        stock_rows = cursor.fetchall()
+        stock_info_dict = [dict(zip(stock_column, row)) for row in stock_rows]
 
-    # Current price of all users stocks
-    price_list = [lookup(symbol["stock_symbol"])["price"] for symbol in stock_info_dict]
+        # Current price of all users stocks
+        price_list = [lookup(symbol["stock_symbol"])["price"] for symbol in stock_info_dict]
+
+    except (KeyError, TypeError):
+        open("error.txt", "a").write(f"{current_date_time} - No data found!\n")
+        session.clear()
+        return redirect("/login")
 
     return render_template(
         "index.html",
@@ -346,4 +363,4 @@ def account():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)  # Remove debug when deployed
